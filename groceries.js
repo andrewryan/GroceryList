@@ -21,10 +21,16 @@ function getCookie(cname) {
     }
     return "";
 }
+var myList = [];
 
 function addItem()
 {
     var input = document.getElementById("newItem").value;
+    if(myList.indexOf(input) == -1)
+    {
+        myList.push(input);
+    }
+    console.log(myList);
     var list = document.getElementById("listDisplay");
     var item = document.createElement("li");
     var itemName = document.createTextNode(input);
