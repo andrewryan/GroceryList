@@ -21,32 +21,32 @@ function getCookie(cname) {
     }
     return "";
 }
-var myList = [];
 
+var myList = [];
 function addItem()
 {
     var input = document.getElementById("newItem").value;
     if(myList.indexOf(input) == -1)
     {
         myList.push(input);
+        console.log(myList);
+        var list = document.getElementById("listDisplay");
+        var item = document.createElement("li");
+        var itemName = document.createTextNode(input);
+        var btnClose = document.createElement("button");
+        btnClose.classList.add("btn");
+        btnClose.classList.add("btn-danger");
+        btnClose.classList.add("btn-xs");
+        var iconClose = document.createElement("span");
+        iconClose.classList.add("glyphicon");
+        iconClose.classList.add("glyphicon-remove");
+        btnClose.addEventListener("click", removeParentListItem );
+        btnClose.appendChild(iconClose);
+        list.appendChild(item);
+        item.appendChild(itemName);
+        item.appendChild(btnClose);
+        document.getElementById("newItem").value = "";
     }
-    console.log(myList);
-    var list = document.getElementById("listDisplay");
-    var item = document.createElement("li");
-    var itemName = document.createTextNode(input);
-    var btnClose = document.createElement("button");
-    btnClose.classList.add("btn");
-    btnClose.classList.add("btn-danger");
-    btnClose.classList.add("btn-xs");
-    var iconClose = document.createElement("span");
-    iconClose.classList.add("glyphicon");
-    iconClose.classList.add("glyphicon-remove");
-    btnClose.addEventListener("click", removeParentListItem );
-    btnClose.appendChild(iconClose);
-    list.appendChild(item);
-    item.appendChild(itemName);
-    item.appendChild(btnClose);
-    document.getElementById("newItem").value = "";
 }
 
 function removeParentListItem()
@@ -54,4 +54,8 @@ function removeParentListItem()
     var mom = this.parentNode;
     var grandma = mom.parentNode;
     grandma.removeChild(mom);
+    itemRemove = mom.firstChild.textContent;
+    itemIndex = myList.indexOf(itemRemove);
+    myList.splice(itemIndex, 1);
+    console.log("remove function: " + myList);
 }
